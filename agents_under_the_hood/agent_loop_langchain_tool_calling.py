@@ -58,6 +58,53 @@ def run_agent(question: str):
         ),
     ]
 
+    for iteration in range(1, MAX_ITERATIONS+1):
+        print(f"\n--- Iteration {iteration} ---")
+
+        ai_message = llm_with_tools.invoke(messages)
+
+        tool_calls = ai_message.tool_calls
+
+        if not tool_calls:
+            print(f"\nFinal Answer: {ai_message.content}")
+            return ai_message.content
+
+        # Process only the FIRST tool call — force one tool per iteration
+        tool_call = tool_calls[0]
+        tool_name = tool_call.get("name")
+        tool_args = tool_call.get("args", {})
+        tool_id = tool_call.get("id")
+
+        print(f"  [Tool Selected] {tool_name} with args: {tool_args} and id {tool_id}")
+
+        # check if the tool_name suggested by the LLM is valid
+        tool_to_use = tools_dict.get(tool_name)
+
+        # raise error in case of an invalid tool
+        if tool_to_use is None:
+            raise ValueError(f"Tool '{tool_name}' not found")
+
+        # call the tool - the output will be the observation
+        # rather than passing **tool_args
+        # we will use the .invoke method
+        # since the tool decorator from langchain is used 
+        observation = tool_to_use.invoke(tool_args)
+
+        # print output of tool invoked
+        print(f"  [Tool Result] {observation}")
+
+        # add the ai_message and observation (as ToolMessage) to messages 
+        # to maintain trace across each iteration
+        messages.append(
+            ai_message
+        )
+        messages.append(
+            ToolMessage(content=str(observation), tool_call_id=tool_id)
+        )
+
+    # If all iterations exhausted, print error
+    print("ERROR: Max iterations reached without a final answer")
+    return None
 
 
 if __name__ == "__main__":
