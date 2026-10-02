@@ -88,6 +88,9 @@ def openai_chat_traced(messages):
 
 @traceable(name="Open AI Agent Loop")
 def run_agent(question: str):
+
+    # Difference 4: Without LangChain, we must manually create the dictionary for tools
+    # because Langchain's @tool decorator added the name attribute to the function
     
     tools_dict = {
         "get_product_price":get_product_price,
