@@ -44,6 +44,11 @@ Original repo: <a href="https://github.com/emarco177/langchain-course" target="_
 #### Lecture 48
 - What are the disadvantages of building RAG by invoking different langchain components separately? (Hint: Different steps will appear in different traces)
 
+#### Lecture 49
+- Explain how itemgetter in operator module works with examples.
+- Explain how RunnablePassthrough is used in Langchain
+
+
 
 
 #### General
