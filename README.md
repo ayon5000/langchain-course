@@ -1,8 +1,7 @@
 # Revision Repo for Langchain Course by Eden Marco 
 
-Original repo: <a href="https://github.com/emarco177/langchain-course" target="_blank">link</a>
-
-
+- Main course repo: <a href="https://github.com/emarco177/langchain-course" target="_blank">link</a>
+- Documentation helper <a href="https://github.com/emarco177/documentation-helper/tree/main" target="_blank">link</a> 
 
 # Role Play Questions:
 
@@ -48,7 +47,10 @@ Original repo: <a href="https://github.com/emarco177/langchain-course" target="_
 - Explain how itemgetter in operator module works with examples.
 - Explain how RunnablePassthrough is used in Langchain
 
+#### Lecture 50
 
+- How would a traditional RAG chain with specific retriver and generation steps compare to an approach where a ReAct agent is given a search tool and is used as a RAG?
+- Additionally, how would a ReAct agent with no tools and retriever output passed to it behave vs a traditional two step RAG chain? 
 
 
 #### General
